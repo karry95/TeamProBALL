@@ -14,7 +14,10 @@ namespace UnityStandardAssets.SceneUtils
         {
             Activate,
             Instantiate,
-            Trail
+            Trail,
+            NFAA,
+            DLAA,
+            FXAA3Console
         }
 
         public enum AlignMode

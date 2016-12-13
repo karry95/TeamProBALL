@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace UnityStandardAssets.ImageEffects
 {
-    [CustomEditor (typeof(EdgeDetection))]
+    [CustomEditor (typeof(EdgeDetectionEditor))]
     class EdgeDetectionEditor : Editor
     {
         SerializedObject serObj;

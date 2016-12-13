@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace UnityStandardAssets.ImageEffects
 {
-    [CustomEditor(typeof(DepthOfField))]
+    [CustomEditor(typeof(DepthOfFieldDeprecatedEditor))]
     class DepthOfFieldEditor : Editor
     {
         SerializedObject serObj;
@@ -119,7 +119,7 @@ namespace UnityStandardAssets.ImageEffects
 
             EditorGUILayout.PropertyField(blurType, new GUIContent("Defocus Type"));
 
-            if (!(target as DepthOfField).Dx11Support() && blurType.enumValueIndex > 0)
+            if (!(target as DepthOfFieldDeprecatedEditor).Dx11Support() && blurType.enumValueIndex > 0)
             {
                 EditorGUILayout.HelpBox("DX11 mode not supported (need shader model 5)", MessageType.Info);
             }

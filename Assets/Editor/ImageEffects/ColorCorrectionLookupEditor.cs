@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace UnityStandardAssets.ImageEffects
 {
-    [CustomEditor (typeof(ColorCorrectionLookup))]
+    [CustomEditor (typeof(ColorCorrectionLookupEditor))]
     class ColorCorrectionLookupEditor : Editor
     {
         SerializedObject serObj;
@@ -15,6 +15,7 @@ namespace UnityStandardAssets.ImageEffects
 
         private Texture2D tempClutTex2D;
 
+        public string basedOnTempTex { get; private set; }
 
         public override void OnInspectorGUI () {
             serObj.Update ();
@@ -30,16 +31,16 @@ namespace UnityStandardAssets.ImageEffects
             //EditorGUILayout.Space();
             tempClutTex2D = EditorGUILayout.ObjectField (" Based on", tempClutTex2D, typeof(Texture2D), false) as Texture2D;
             if (tempClutTex2D == null) {
-                t = AssetDatabase.LoadMainAssetAtPath(((ColorCorrectionLookup)target).basedOnTempTex) as Texture2D;
+                t = AssetDatabase.LoadMainAssetAtPath(((ColorCorrectionLookupEditor)target).basedOnTempTex) as Texture2D;
                 if (t) tempClutTex2D = t;
             }
 
             Texture2D tex = tempClutTex2D;
 
-            if (tex && (target as ColorCorrectionLookup).basedOnTempTex != AssetDatabase.GetAssetPath(tex))
+            if (tex && (target as ColorCorrectionLookupEditor).basedOnTempTex != AssetDatabase.GetAssetPath(tex))
             {
                 EditorGUILayout.Separator();
-                if (!(target as ColorCorrectionLookup).ValidDimensions(tex))
+                if (!(target as ColorCorrectionLookupEditor).ValidDimensions(tex))
                 {
                     EditorGUILayout.HelpBox ("Invalid texture dimensions!\nPick another texture or adjust dimension to e.g. 256x16.", MessageType.Warning);
                 }
@@ -64,14 +65,14 @@ namespace UnityStandardAssets.ImageEffects
                         //tex = AssetDatabase.LoadMainAssetAtPath(path);
                     }
 
-                    (target as ColorCorrectionLookup).Convert(tex, path);
+                    (target as ColorCorrectionLookupEditor).Convert(tex, path);
                 }
             }
 
-            if ((target as ColorCorrectionLookup).basedOnTempTex != "")
+            if ((target as ColorCorrectionLookupEditor).basedOnTempTex != "")
             {
-                EditorGUILayout.HelpBox("Using " + (target as ColorCorrectionLookup).basedOnTempTex, MessageType.Info);
-                t = AssetDatabase.LoadMainAssetAtPath(((ColorCorrectionLookup)target).basedOnTempTex) as Texture2D;
+                EditorGUILayout.HelpBox("Using " + (target as ColorCorrectionLookupEditor).basedOnTempTex, MessageType.Info);
+                t = AssetDatabase.LoadMainAssetAtPath(((ColorCorrectionLookupEditor)target).basedOnTempTex) as Texture2D;
                 if (t) {
                     r = GUILayoutUtility.GetLastRect();
                     r = GUILayoutUtility.GetRect(r.width, 20);
@@ -85,6 +86,16 @@ namespace UnityStandardAssets.ImageEffects
             //EditorGUILayout.EndHorizontal ();
 
             serObj.ApplyModifiedProperties();
+        }
+
+        private void Convert(Texture2D tex, string path)
+        {
+            throw new NotImplementedException();
+        }
+
+        private bool ValidDimensions(Texture2D tex)
+        {
+            throw new NotImplementedException();
         }
     }
 }

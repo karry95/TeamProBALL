@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace UnityStandardAssets.ImageEffects
 {
-    [CustomEditor (typeof(DepthOfFieldDeprecated))]
+    [CustomEditor (typeof(DepthOfFieldDeprecatedEditor))]
     class DepthOfFieldDeprecatedEditor : Editor
     {
         SerializedObject serObj;
@@ -39,6 +39,8 @@ namespace UnityStandardAssets.ImageEffects
         SerializedProperty bluriness;
         SerializedProperty maxBlurSpread;
         SerializedProperty foregroundBlurExtrude;
+
+        public GameObject gameObject { get; private set; }
 
         void OnEnable () {
             serObj = new SerializedObject (target);
@@ -80,7 +82,7 @@ namespace UnityStandardAssets.ImageEffects
         public override void OnInspectorGUI () {
             serObj.Update ();
 
-            GameObject go = (target as DepthOfFieldDeprecated).gameObject;
+            GameObject go = (target as DepthOfFieldDeprecatedEditor).gameObject;
 
             if (!go)
                 return;
@@ -144,6 +146,11 @@ namespace UnityStandardAssets.ImageEffects
             }
 
             serObj.ApplyModifiedProperties();
+        }
+
+        internal bool Dx11Support()
+        {
+            throw new NotImplementedException();
         }
     }
 }
